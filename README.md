@@ -75,11 +75,11 @@ Reading Egyptian hieroglyphs is a specialized skill — it normally requires yea
 
 ```mermaid
 graph TB
-    subgraph Client["🖥️ Client Layer"]
+    subgraph Client[" Client Layer"]
         A[Next.js Frontend<br/>React + Tailwind CSS]
     end
 
-    subgraph API["📡 API Layer"]
+    subgraph API[" API Layer"]
         B[FastAPI Backend<br/>Python + Uvicorn]
     end
 
@@ -131,8 +131,7 @@ graph TB
 |------------|---------|
 | **InceptionV3** | Deep CNN for image classification |
 | **TensorFlow / Keras** | Model training & inference |
-| **XGBoost** | Gradient boosting for auxiliary tasks |
-| **Scikit-Learn** | Preprocessing & evaluation metrics |
+
 
 ---
 
