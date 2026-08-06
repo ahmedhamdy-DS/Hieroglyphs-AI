@@ -2,7 +2,7 @@
 
 import Section from './Section'
 
-// Expanded timeline with more detail for a richer educational experience
+
 const timelineEvents = [
   {
     year: 'c. 3150 BC',
@@ -64,13 +64,14 @@ export default function Timeline() {
   return (
     <Section>
       <div
-        className="relative bg-fixed bg-center bg-cover py-20"
+        
+        className="relative bg-center bg-cover py-20"
         style={{
           backgroundImage: "url('/papyrus-bg.jpg')",
         }}
       >
-        {/* Dark overlay with golden gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-pharaoh-dark/90 via-pharaoh-dark/85 to-egyptian-gold/10 backdrop-blur-[2px]"></div>
+        
+        <div className="absolute inset-0 bg-gradient-to-b from-pharaoh-dark/95 via-pharaoh-dark/90 to-egyptian-gold/20"></div>
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4">
@@ -94,7 +95,8 @@ export default function Timeline() {
                     index % 2 === 0 ? 'order-1' : 'order-3 text-right'
                   }`}
                 >
-                  <div className="px-6 py-4 rounded-xl shadow-xl bg-pharaoh-dark/80 text-papyrus border border-egyptian-gold/50 backdrop-blur-sm">
+                  
+                  <div className="px-6 py-4 rounded-xl shadow-xl bg-pharaoh-dark/90 text-papyrus border border-egyptian-gold/50 backdrop-blur-sm">
                     <p className="font-cinzel text-lg mb-2 text-egyptian-gold drop-shadow-md">
                       {item.year}
                     </p>
