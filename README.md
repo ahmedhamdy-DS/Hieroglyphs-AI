@@ -5,7 +5,7 @@
  **Live demo:** [hieroglyphs-ai.vercel.app](https://hieroglyphs-ai.vercel.app)
 
 >
-![Hieroglyphs-AI overview](Docs\Overview.png)
+![Hieroglyphs-AI overview](ML\Docs\Overview.png)
 
 ---
 
@@ -51,7 +51,7 @@ hieroglyphs-project/
 5. The result renders instantly in the UI.
 
 
-![Translator screenshot](Docs\Translator.png)
+![Translator screenshot](ML\Docs\Translator.png)
 
 ---
 
