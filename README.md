@@ -1,23 +1,81 @@
-# Egyptian Hieroglyphs — Project
+# 𓂀 Hieroglyphs-AI
 
-المشروع اتقسم لجزئين مستقلين بيتكلموا مع بعض عن طريق API:
+**AI-powered Egyptian hieroglyph recognition — upload a photo of a hieroglyph and get an instant translation.**
+
+ **Live demo:** [hieroglyphs-ai.vercel.app](https://hieroglyphs-ai.vercel.app)
+
+>
+![Hieroglyphs-AI overview](Docs\Overview.png)
+
+---
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js, React, TypeScript |
+| Backend | FastAPI (Python) |
+| Model | InceptionV3 (TensorFlow / Keras), trained to classify hieroglyph symbols by Gardiner code |
+| Frontend hosting | Vercel |
+| Backend hosting | Render (Docker) |
+
+---
+
+## The problem
+
+Reading Egyptian hieroglyphs is a specialized skill — it normally requires years of studying Egyptology or Gardiner's sign list to identify even a single symbol. This creates a barrier for:
+
+- **Tourists and museum visitors** who see hieroglyphs on monuments and artifacts but have no way to understand them on the spot.
+- **Students and hobbyists** learning about ancient Egypt who want a quick, interactive way to explore individual symbols instead of digging through academic references.
+- **Content creators / educators** who need a fast way to identify and describe a symbol they've photographed.
+
+**Hieroglyphs-AI removes that barrier**: upload a photo of a single hieroglyph, and the model identifies it, returns its Gardiner code, name, meaning, and a confidence score — in seconds, from any browser.
+
+---
+
+## How it works
+
+The project is split into two independent services that talk to each other over a simple REST API:
 
 ```
 hieroglyphs-project/
-├── backend/     → FastAPI (منطق الذكاء الاصطناعي، مأخوذ من مشروع Streamlit الأصلي)
-└── frontend/    → Next.js (الموقع اللي كنت شغال عليه، اتضاف له مكون Translator)
+├── backend/   → FastAPI service that loads an InceptionV3 model and serves predictions
+└── frontend/  → Next.js site (Hero, Pharaohs, Monuments, Timeline, Gallery, 3D Artifacts, Translator)
 ```
 
-## الفكرة
+**User flow:**
+1. Visitor opens the site and scrolls to the **AI Hieroglyph Translator** section.
+2. They upload a photo of a hieroglyph (JPG / PNG / WEBP, up to 8MB).
+3. The frontend sends the image to the backend's `/api/predict` endpoint.
+4. The backend (a fine-tuned **InceptionV3** CNN) classifies the symbol and returns its Gardiner code, name, description, and confidence score.
+5. The result renders instantly in the UI.
 
-- **backend/**: فيه نفس منطق التنبؤ اللي كان في `pages/1_Translator.py` (تحميل موديل InceptionV3، الـ label_map، قاموس الرموز)، لكن اتحول لـ API بـ FastAPI بدل Streamlit. مفيهوش أي UI خالص.
-- **frontend/**: مشروعك الـ Next.js زي ما هو (Hero, Pharaohs, Monuments, Timeline, Gallery, Artifact3D)، وأضفت له مكون جديد اسمه `Translator.tsx` بيرفع صورة ويبعتها لـ backend عن طريق `fetch` ويعرض النتيجة.
 
-الاتنين شغالين منفصلين تمامًا (سيرفرين مختلفين، حتى لو محليًا)، والربط بينهم بس عن طريق رابط الـ API.
+![Translator screenshot](Docs\Translator.png)
 
-## إزاي تشغلهم محليًا مع بعض
+---
 
-**١) شغّل الـ backend الأول:**
+The AI logic originally lived inside a Streamlit prototype (`pages/1_Translator.py`). It was extracted into a standalone FastAPI service with no UI of its own, so it can be called by any client — the Next.js site today, potentially a mobile app tomorrow.
+
+---
+
+## API reference
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/predict` | `POST` | Accepts an image file, returns the predicted symbol (code, name, description, confidence) |
+| `/api/symbols` | `GET` | Returns the full database of known symbols |
+| `/api/symbols/{code}` | `GET` | Returns details for a single symbol by Gardiner code |
+| `/api/categories` | `GET` | Returns the main Gardiner categories (A: Man, B: Woman, ...) |
+| `/api/health` | `GET` | Health check — confirms the server is up and the model is loaded |
+
+Interactive docs are available at `/docs` on the backend (FastAPI's built-in Swagger UI).
+
+---
+
+## Running locally
+
+**1. Start the backend:**
 ```bash
 cd backend
 python -m venv .venv && source .venv/bin/activate
@@ -25,42 +83,54 @@ pip install -r requirements.txt
 cp .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
-جرب `http://localhost:8000/docs` تتأكد إنه شغال.
+Visit `http://localhost:8000/docs` to confirm it's running.
 
-**٢) شغّل الـ frontend:**
+**2. Start the frontend:**
 ```bash
 cd frontend
 npm install
 cp .env.local.example .env.local
 npm run dev
 ```
-افتح `http://localhost:3000` — هتلاقي قسم "AI Hieroglyph Translator" جديد، وهو اللي بيكلم الـ backend.
+Open `http://localhost:3000` — you'll see the "AI Hieroglyph Translator" section talking to your local backend.
 
-الربط كله بيحصل عن طريق متغير واحد: `NEXT_PUBLIC_API_URL` في ملف `frontend/.env.local` — لازم يبقى نفس الرابط اللي شغال عليه الـ backend.
+The two services are connected by a single environment variable: `NEXT_PUBLIC_API_URL` in `frontend/.env.local`, which must match the URL the backend is running on.
 
-## إزاي تنشرهم (Deployment)
+---
 
-| الجزء | فين |
-|---|---|
-| backend | Render / Railway / Fly.io (بيدعموا Docker، فيه `Dockerfile` جاهز) |
-| frontend | Vercel (الأنسب لـ Next.js) |
+## Deployment
 
-خطوات النشر:
-1. ادفع كل مجلد (`backend`, `frontend`) كـ repo منفصل على GitHub (أو نفس الـ repo، بس حدد الـ root directory وقت الديبلوي).
-2. انشر الـ backend الأول (مثلاً على Render) → هياخد رابط زي `https://hieroglyphs-api.onrender.com`.
-3. في Vercel، وقت ما تنشر الـ frontend، ضيف Environment Variable:
-   `NEXT_PUBLIC_API_URL = https://hieroglyphs-api.onrender.com`
-4. في `backend/.env` (أو Environment Variables على Render)، حدد:
+| Part | Where | Notes |
+|---|---|---|
+| Backend | Render (or Railway / Fly.io) | Docker-based, `Dockerfile` included |
+| Frontend | Vercel | Set **Framework Preset** to `Next.js` explicitly |
+
+**Steps:**
+1. Deploy `backend/` (e.g. to Render) → you'll get a URL like `https://hieroglyphs-ai.onrender.com`.
+2. On Vercel, set the frontend's environment variable:
+   `NEXT_PUBLIC_API_URL = https://hieroglyphs-ai.onrender.com`
+3. On the backend host, set:
    `ALLOWED_ORIGINS = https://your-frontend.vercel.app`
-   عشان الـ CORS يسمح بس لموقعك يكلم الـ API.
+   so CORS only allows your actual frontend domain to call the API.
 
-كده الموقع بقى على دومين حقيقي، وبيكلم API حقيقي منفصل عنه بالكامل.
+> **Note on cold starts:** on Render's free tier, the backend spins down after ~15 minutes of inactivity, so the first request after idle time can take 30–60s while the model warms back up. For production use, consider a paid instance (no spin-down) or a keep-alive ping to `/api/health` every ~10 minutes.
 
-## اللي اتغيّر بالظبط عشان الدمج
+---
 
-- `frontend/app/components/Translator.tsx` → ملف جديد بالكامل
-- `frontend/app/page.tsx` → إضافة سطرين لاستدعاء `Translator`
-- `frontend/.env.local.example` → ملف جديد
-- `backend/` → مجلد جديد بالكامل، فيه نفس منطق AI بتاع مشروع Streamlit بعد ما اتنظف وانفصل عن الـ UI
+## Roadmap / possible next steps
 
-باقي مكونات الـ frontend (Hero, Pharaohs, Monuments, Gallery, Timeline, Artifact3D) متلمُّوش خالص.
+- [ ] Batch upload — recognize multiple hieroglyphs in one photo (segment + classify each)
+- [ ] Confidence threshold UI — flag low-confidence predictions instead of showing a guess
+- [ ] Mobile camera capture (not just file upload)
+- [ ] Expand the symbol database beyond the current label set
+- [ ] Cache frequent predictions to reduce backend load
+
+---
+
+## Credits
+
+Built by **Ahmed Hamdy** — Data Scientist & ML Engineer.
+
+- LinkedIn: [linkedin.com/in/ahmed-hamdy-4569a8360](https://www.linkedin.com/in/ahmed-hamdy-4569a8360/)
+- Portfolio: [my-web-3ciq.vercel.app](https://my-web-3ciq.vercel.app/)
+- GitHub: [@ahmedhamdy-DS](https://github.com/ahmedhamdy-DS)
