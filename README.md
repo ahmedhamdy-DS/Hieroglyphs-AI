@@ -1,23 +1,23 @@
 # 𓂀 Hieroglyphs-AI
 
 **AI-powered Egyptian hieroglyph recognition — upload a photo of a hieroglyph and get an instant translation.**
-
+ <p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi" alt="FastAPI" />
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/XGBoost-006ACC?style=for-the-badge" alt="XGBoost" />
+  <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-Learn" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render" />
+</p>
+ 
+ 
  **Live demo:** [hieroglyphs-ai.vercel.app](https://hieroglyphs-ai.vercel.app)
 
 >
 ![Hieroglyphs-AI overview](ML\Docs\Overview.png)
-
----
-
-## Tech stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | Next.js, React, TypeScript |
-| Backend | FastAPI (Python) |
-| Model | InceptionV3 (TensorFlow / Keras), trained to classify hieroglyph symbols by Gardiner code |
-| Frontend hosting | Vercel |
-| Backend hosting | Render (Docker) |
 
 ---
 
