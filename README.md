@@ -18,9 +18,6 @@
 
 <p>
   <a href="https://hieroglyphs-ai.vercel.app"><strong> Live Demo</strong></a> •
-  <a href="#-quick-start"><strong> Quick Start</strong></a> •
-  <a href="#-api-reference"><strong> API</strong></a> •
-  <a href="#-architecture"><strong> Architecture</strong></a>
 </p>
 
 <img src="./ML/Docs/Overview.png" alt="Hieroglyphs-AI overview" width="800"/>
