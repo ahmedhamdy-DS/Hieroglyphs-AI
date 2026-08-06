@@ -2,7 +2,7 @@
 
 import Section from './Section'
 
-
+// Expanded timeline with more detail for a richer educational experience
 const timelineEvents = [
   {
     year: 'c. 3150 BC',
@@ -64,68 +64,64 @@ export default function Timeline() {
   return (
     <Section>
       <div
-        
-        className="relative bg-center bg-cover py-20"
+        className="relative bg-center bg-cover py-16 md:py-20"
         style={{
           backgroundImage: "url('/papyrus-bg.jpg')",
         }}
       >
-        
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-pharaoh-dark/95 via-pharaoh-dark/90 to-egyptian-gold/20"></div>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-cinzel text-egyptian-gold text-center mb-20 drop-shadow-lg tracking-wide">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8">
+          <h2 className="text-4xl md:text-5xl font-cinzel text-egyptian-gold text-center mb-16 md:mb-24 drop-shadow-lg tracking-wide">
             A Journey Through Time
           </h2>
 
           {/* Timeline Container */}
-          <div className="relative max-w-4xl mx-auto">
-            {/* Vertical Line */}
-            <div className="absolute left-1/2 w-[3px] h-full bg-gradient-to-b from-egyptian-gold/50 via-egyptian-gold to-egyptian-gold/50 transform -translate-x-1/2"></div>
+          <div className="relative max-w-5xl mx-auto">
+            {/* Vertical Line - (Left on Mobile, Center on Desktop) */}
+            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-egyptian-gold/50 via-egyptian-gold to-egyptian-gold/50 transform -translate-x-1/2"></div>
 
-            {timelineEvents.map((item, index) => (
-              <div
-                key={index}
-                className="relative mb-12 flex justify-between items-center w-full"
-              >
-                {/* Left Side Content Block */}
+            {timelineEvents.map((item, index) => {
+              const isEven = index % 2 === 0
+              
+              return (
                 <div
-                  className={`w-5/12 ${
-                    index % 2 === 0 ? 'order-1' : 'order-3 text-right'
-                  }`}
+                  key={index}
+                  className="relative mb-10 md:mb-16 flex items-center w-full"
                 >
-                  
-                  <div className="px-6 py-4 rounded-xl shadow-xl bg-pharaoh-dark/90 text-papyrus border border-egyptian-gold/50 backdrop-blur-sm">
-                    <p className="font-cinzel text-lg mb-2 text-egyptian-gold drop-shadow-md">
-                      {item.year}
-                    </p>
-                    <h3 className="font-cinzel font-bold text-xl mb-3 text-white">
-                      {item.event}
-                    </h3>
-                    <p className="font-inter leading-relaxed text-base text-papyrus/80">
-                      {item.description}
-                    </p>
+                 
+                  <div className="absolute left-6 md:left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center bg-pharaoh-dark w-8 h-8 rounded-full border-2 border-egyptian-gold shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                    <span className="block w-3 h-3 bg-egyptian-gold rounded-full"></span>
+                  </div>
+
+
+                  <div
+                    className={`w-full pl-16 md:w-1/2 md:pl-0 ${
+                      isEven
+                        ? 'md:pr-12 md:text-right' 
+                        : 'md:pl-12 md:ml-auto' 
+                    }`}
+                  >
+                    <div className="px-5 py-5 md:px-6 md:py-6 rounded-xl shadow-xl bg-pharaoh-dark/90 text-papyrus border border-egyptian-gold/40 hover:border-egyptian-gold/80 transition-colors duration-300">
+                      <p className="font-cinzel text-base md:text-lg mb-1 text-egyptian-gold drop-shadow-md">
+                        {item.year}
+                      </p>
+                      <h3 className="font-cinzel font-bold text-lg md:text-xl mb-3 text-white leading-snug">
+                        {item.event}
+                      </h3>
+                      <p className="font-inter leading-relaxed text-sm md:text-base text-papyrus/80">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-
-                {/* Center Dot */}
-                <div className="z-20 order-2 flex items-center justify-center bg-pharaoh-dark w-8 h-8 rounded-full border-2 border-egyptian-gold shadow-lg">
-                  <span className="block w-3 h-3 bg-egyptian-gold rounded-full"></span>
-                </div>
-
-                {/* Right Side Spacer */}
-                <div
-                  className={`w-5/12 ${
-                    index % 2 === 0 ? 'order-3' : 'order-1'
-                  }`}
-                ></div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>
     </Section>
   )
 }
-
