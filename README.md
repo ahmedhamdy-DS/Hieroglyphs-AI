@@ -51,7 +51,7 @@ hieroglyphs-project/
 5. The result renders instantly in the UI.
 
 
-![Translator screenshot](.\ML\Docs\Translator.png)
+![Translator screenshot](./ML/Docs/Translator.png)
 
 ---
 
