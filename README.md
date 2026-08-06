@@ -17,7 +17,7 @@
  **Live demo:** [hieroglyphs-ai.vercel.app](https://hieroglyphs-ai.vercel.app)
 
 >
-![Hieroglyphs-AI overview](ML\Docs\Overview.png)
+![Hieroglyphs-AI overview](.ML\Docs\Overview.png)
 
 ---
 
