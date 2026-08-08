@@ -126,14 +126,14 @@ export default function Monuments() {
                     index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
                   } items-center gap-12`}
                 >
-                  <div className="md:w-1/2 p-2 border-2 border-egyptian-gold/30 rounded-lg bg-black/30">
-                    <div className="relative w-full h-72 md:h-80">
+                  <div className="w-full md:w-1/2 p-2 border-2 border-egyptian-gold/30 rounded-lg bg-black/30">
+                    <div className="relative w-full aspect-[4/3] overflow-hidden rounded-md">
                       <Image
                         src={monument.image}
                         alt={monument.name}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover rounded-md shadow-2xl shadow-egyptian-gold/10"
+                        className="object-cover shadow-2xl shadow-egyptian-gold/10"
                       />
                     </div>
                   </div>
