@@ -2,9 +2,10 @@
 
 'use client'
 
-import { useState, useEffect } from 'react' // Import useEffect for keyboard controls
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ChevronLeft, ChevronRight } from 'lucide-react' // Import navigation icons
+import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const galleryItems = [
   {
@@ -28,22 +29,21 @@ const galleryItems = [
     alt: 'A stone tablet covered in finely carved ancient Egyptian hieroglyphs.',
   },
   {
-    src: '/artifact-6.jpg', // Assuming this path is correct from your code
+    src: '/artifact-6.jpg',
     title: 'Scarab Amulet',
     alt: 'A Lapis Lazuli scarab beetle amulet, a symbol of rebirth.',
   },
   {
-    src: '/artifact-7.jpg', // Assuming this path is correct from your code
+    src: '/artifact-7.jpg',
     title: 'Pharaoh\'s Throne',
     alt: 'An ornate golden throne discovered in a royal tomb.',
   },
 ]
 
-// FIX 1: The Lightbox component now accepts onNext and onPrev functions for navigation.
+// Lightbox component with next/next navigation
 const Lightbox = ({ item, onClose, onNext, onPrev }) => {
   if (!item) return null
 
-  // Stop propagation on button clicks to prevent closing the lightbox
   const handleNavigation = (e, action) => {
     e.stopPropagation()
     action()
@@ -67,17 +67,21 @@ const Lightbox = ({ item, onClose, onNext, onPrev }) => {
 
       {/* Image Content */}
       <motion.div
-        key={item.src} // Add key to re-trigger animation on item change
+        key={item.src}
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="relative max-w-4xl max-h-[90vh] w-full p-4 flex flex-col items-center justify-center"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image area
+        onClick={(e) => e.stopPropagation()}
       >
-        <img
-          src={item.src}
-          alt={item.alt}
-          className="max-w-full max-h-[80vh] object-contain rounded-lg"
-        />
+        <div className="relative w-full h-[70vh]">
+          <Image
+            src={item.src}
+            alt={item.alt}
+            fill
+            sizes="(max-width: 768px) 100vw, 900px"
+            className="object-contain rounded-lg"
+          />
+        </div>
         <p className="text-center text-papyrus/80 mt-4 font-cinzel tracking-wider text-lg">
           {item.title}
         </p>
@@ -105,13 +109,12 @@ const Lightbox = ({ item, onClose, onNext, onPrev }) => {
 export default function Gallery() {
   const [selectedItem, setSelectedItem] = useState(null)
 
-  // FIX 2: Added state management logic for navigation.
   const handleNext = () => {
     if (selectedItem) {
       const currentIndex = galleryItems.findIndex(
         (item) => item.src === selectedItem.src,
       )
-      const nextIndex = (currentIndex + 1) % galleryItems.length // Wraps around to the start
+      const nextIndex = (currentIndex + 1) % galleryItems.length
       setSelectedItem(galleryItems[nextIndex])
     }
   }
@@ -122,12 +125,11 @@ export default function Gallery() {
         (item) => item.src === selectedItem.src,
       )
       const prevIndex =
-        (currentIndex - 1 + galleryItems.length) % galleryItems.length // Wraps around to the end
+        (currentIndex - 1 + galleryItems.length) % galleryItems.length
       setSelectedItem(galleryItems[prevIndex])
     }
   }
 
-  // FIX 3: Added keyboard navigation support.
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (!selectedItem) return
@@ -166,10 +168,12 @@ export default function Gallery() {
                 onClick={() => setSelectedItem(item)}
                 className="group relative aspect-square overflow-hidden rounded-lg cursor-pointer border-2 border-transparent hover:border-egyptian-gold/50 transition-all"
               >
-                <img
+                <Image
                   src={item.src}
                   alt={item.alt}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
+                  fill
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                 <h3 className="absolute bottom-4 left-4 font-cinzel text-lg text-papyrus drop-shadow-md">

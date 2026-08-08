@@ -6,7 +6,6 @@ import { Suspense } from 'react'
 import { motion } from 'framer-motion'
 
 function TutMaskModel(props: any) {
-  // استخدم الموديل المضغوط Draco
   const { scene } = useGLTF('/tutankhamun_mask_draco.glb')
   return <primitive object={scene} {...props} />
 }
@@ -33,7 +32,7 @@ export default function Artifact3D() {
           <Canvas
             camera={{ position: [0, 0, 3.5], fov: 40 }}
             frameloop="demand"
-            gl={{ antialias: false, powerPreference: 'low-power' }} // خفف الضغط على GPU
+            gl={{ antialias: false, powerPreference: 'low-power' }}
           >
             <ambientLight intensity={1.5} />
             <directionalLight position={[2, 5, 5]} intensity={2.5} castShadow />
@@ -59,8 +58,7 @@ export default function Artifact3D() {
   )
 }
 
-// Preload الموديل المضغوط
-useGLTF.preload('/tutankhamun_mask_draco.glb')
+
 
 
 

@@ -3,7 +3,8 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion' // Import motion directly
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 
 // DATA (no changes)
@@ -55,7 +56,7 @@ const monuments = [
   },
 ];
 
-// MODAL COMPONENT (no changes)
+// MODAL COMPONENT
 const MonumentModal = ({ monument, onClose }) => {
   if (!monument) return null
   return (
@@ -76,11 +77,15 @@ const MonumentModal = ({ monument, onClose }) => {
         <h2 className="text-3xl md:text-4xl font-cinzel text-egyptian-gold mb-4 drop-shadow-lg">
           {monument.name}
         </h2>
-        <img
-          src={monument.image}
-          alt={monument.name}
-          className="w-full h-auto max-h-96 object-cover rounded-md mb-6"
-        />
+        <div className="relative w-full h-96 mb-6">
+          <Image
+            src={monument.image}
+            alt={monument.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 800px"
+            className="object-cover rounded-md"
+          />
+        </div>
         <p className="text-lg text-papyrus/90 font-inter leading-relaxed">
           {monument.details}
         </p>
@@ -95,10 +100,6 @@ export default function Monuments() {
 
   return (
     <>
-      {/* THE FIX:
-        We replaced the problematic <Section> component with a <motion.div>
-        from framer-motion. This handles the animation directly and reliably.
-      */}
       <motion.div
         id="monuments"
         initial={{ opacity: 0, y: 20 }}
@@ -126,11 +127,15 @@ export default function Monuments() {
                   } items-center gap-12`}
                 >
                   <div className="md:w-1/2 p-2 border-2 border-egyptian-gold/30 rounded-lg bg-black/30">
-                    <img
-                      src={monument.image}
-                      alt={monument.name}
-                      className="w-full h-auto rounded-md shadow-2xl shadow-egyptian-gold/10"
-                    />
+                    <div className="relative w-full h-72 md:h-80">
+                      <Image
+                        src={monument.image}
+                        alt={monument.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover rounded-md shadow-2xl shadow-egyptian-gold/10"
+                      />
+                    </div>
                   </div>
                   <div className="md:w-1/2 text-center md:text-left">
                     <p className="font-cinzel text-lg text-egyptian-gold drop-shadow-md mb-2">
@@ -156,7 +161,6 @@ export default function Monuments() {
         </div>
       </motion.div>
 
-      {/* The Modal remains outside the animated component, which is correct */}
       <MonumentModal
         monument={selectedMonument}
         onClose={() => setSelectedMonument(null)}
