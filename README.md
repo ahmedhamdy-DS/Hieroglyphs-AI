@@ -26,24 +26,26 @@
 
 ---
 
-##  Table of Contents
+## 📋 Table of Contents
 
 - [The Problem](#-the-problem)
 - [Features](#-features)
-- [Architecture](#-architecture)
+- [Architecture](#️-architecture)
 - [Tech Stack](#-tech-stack)
 - [User Flow](#-user-flow)
 - [API Reference](#-api-reference)
 - [Getting Started](#-getting-started)
-- [Deployment](#-deployment)
+- [Deployment](#️-deployment)
 - [Project Structure](#-project-structure)
-- [Roadmap](#-roadmap)
+- [Roadmap](#️-roadmap)
 - [Contributing](#-contributing)
+- [Screenshots](#️-screenshots)
+- [License](#-license)
 - [Credits](#-credits)
 
 ---
 
-##  The Problem
+## 🎯 The Problem
 
 Reading Egyptian hieroglyphs is a specialized skill — it normally requires years of studying Egyptology or Gardiner's sign list to identify even a single symbol. This creates a barrier for:
 
@@ -57,7 +59,7 @@ Reading Egyptian hieroglyphs is a specialized skill — it normally requires yea
 
 ---
 
-##  Features
+## ✨ Features
 
 -  **Instant Recognition** — Upload JPG/PNG/WEBP (up to 8MB) and get results in seconds
 -  **Gardiner Classification** — Returns official Gardiner code, symbol name, and description
@@ -68,7 +70,7 @@ Reading Egyptian hieroglyphs is a specialized skill — it normally requires yea
 
 ---
 
-##  Architecture
+## 🏗️ Architecture
 
 ```mermaid
 graph TB
@@ -105,7 +107,7 @@ graph TB
 
 ---
 
-##  Tech Stack
+## 🧰 Tech Stack
 
 ### Frontend
 | Technology | Purpose |
@@ -132,7 +134,7 @@ graph TB
 
 ---
 
-##  User Flow
+## 🔄 User Flow
 
 ```mermaid
 sequenceDiagram
@@ -159,7 +161,7 @@ sequenceDiagram
 
 ---
 
-##  API Reference
+## 📡 API Reference
 
 Base URL: `https://your-backend-url.com`
 
@@ -173,7 +175,7 @@ Base URL: `https://your-backend-url.com`
 | `/api/categories` | `GET` | Get Gardiner categories | None |
 | `/api/health` | `GET` | Health & model status check | None |
 
-###  POST /api/predict
+### 🔹 POST /api/predict
 
 Classify a hieroglyph image.
 
@@ -207,7 +209,7 @@ curl -X POST "https://your-backend-url.com/api/predict" \
 | `422` | Unprocessable | Corrupted or unreadable image |
 | `500` | Server Error | Model inference failure |
 
-###  GET /api/symbols
+### 🔹 GET /api/symbols
 
 Returns the full database of known symbols.
 
@@ -227,7 +229,7 @@ Returns the full database of known symbols.
 }
 ```
 
-###  GET /api/categories
+### 🔹 GET /api/categories
 
 Returns Gardiner's main categories.
 
@@ -259,7 +261,7 @@ Returns Gardiner's main categories.
 }
 ```
 
-###  GET /api/health
+### 🔹 GET /api/health
 
 Health check — confirms server is up and model is loaded.
 
@@ -278,7 +280,7 @@ Health check — confirms server is up and model is loaded.
 
 ---
 
-##  Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -338,7 +340,7 @@ npm run dev
 
 ✅ Frontend running at: `http://localhost:3000`
 
-###  Environment Variables
+### 🔧 Environment Variables
 
 #### Backend (`backend/.env`)
 | Variable | Required | Default | Description |
@@ -355,7 +357,7 @@ npm run dev
 
 ---
 
-##  Deployment
+## ☁️ Deployment
 
 ### Architecture Overview
 
@@ -389,7 +391,7 @@ flowchart LR
 | 5 | | Add env var: `NEXT_PUBLIC_API_URL` = your backend URL |
 | 6 | **Backend** | Set env var: `ALLOWED_ORIGINS` = your Vercel domain |
 
-###  Cold Start Note
+### ⏱️ Cold Start Note
 
 > On Render's free tier, the backend spins down after ~15 min of inactivity. First request after idle time can take **30–60s** while the model warms up.
 >
@@ -453,7 +455,7 @@ hieroglyphs-ai/
 
 ---
 
-##  Roadmap
+## 🗺️ Roadmap
 
 - [ ] **Batch Upload** — Recognize multiple hieroglyphs in one photo (segment + classify each)
 - [ ] **Confidence Threshold UI** — Flag low-confidence predictions instead of showing a guess
@@ -466,7 +468,7 @@ hieroglyphs-ai/
 
 ---
 
-##  Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Here's how to get started:
 
@@ -485,7 +487,7 @@ Contributions are welcome! Here's how to get started:
 
 ---
 
-##  Screenshots
+## 🖼️ Screenshots
 
 <div align="center">
   <img src="./ML/Docs/Translator.png" alt="AI Translator" width="700"/>
@@ -494,13 +496,13 @@ Contributions are welcome! Here's how to get started:
 
 ---
 
-##  License
+## 📄 License
 
 This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
-##  Credits
+## 🙌 Credits
 
 Built by **Ahmed Hamdy** — Data Scientist & ML Engineer.
 
