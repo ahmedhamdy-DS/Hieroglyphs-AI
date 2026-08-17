@@ -20,7 +20,7 @@
  <a href="https://hieroglyphs-ai.vercel.app"><strong> Live Demo</strong></a> •
 </p>
 
-<img src="./ML/Docs/Overview.png" alt="Hieroglyphs-AI overview" width="800"/>
+<img src="https://raw.githubusercontent.com/ahmedhamdy-DS/Hieroglyphs-AI/main/ML/Docs/Overview.png" alt="Hieroglyphs-AI overview" width="800"/>
 
 </div>
 
